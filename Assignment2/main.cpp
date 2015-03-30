@@ -1,8 +1,14 @@
 #include "stack.h"
 #include <iostream>
 
-bool CheckSyntax(std::istream in);
+#define isOp(ch) (ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='%')
+#define isNum(ch) (ch>='0' && ch<='9')
 
+bool CheckSyntax(std::istream& in);
+
+/* Beta version will have check syntax.
+ *
+ */
 int main(int argc, char *argv[])
 {
     using namespace std;
@@ -11,10 +17,11 @@ int main(int argc, char *argv[])
     while(true)
     {
         cout << "Enter postfix equation: ";
+//        CheckSyntax(cin);
         if(cin.peek()=='q') break;
         do {
             char ch = cin.peek();
-            if(ch >= '0' && ch <= '9')
+            if(isNum(ch))
             {
                 // Read an integer
                 int n;
@@ -28,7 +35,7 @@ int main(int argc, char *argv[])
                 ch = cin.get();
                 // ch is an operator or the - at the start of a number
 
-                if(cin.peek() >= '0' && cin.peek() <= '9' && ch == '-')
+                if(isNum(ch) && ch == '-')
                 {
                     ch = cin.get();
                     int n = ch-'0';
@@ -80,30 +87,53 @@ int main(int argc, char *argv[])
         s.pop();
 
         cout << "Sum= " << sum << endl;
+
+        // reset cin.
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
     }
     return 0;
 }
 
-bool isOp(char ch){return (ch == '+') || (ch == '-') || (ch == '*') || (ch == '/') || (ch == '%');}
 
-bool CheckSyntax(std::istream in)
-{
-    char ch = in.get();
-    for(ch; ch == ' '; ch=in.get());
-    if(isOp(ch)) return false;
-    while(!in.eof())
-    {
-        char a,b;
-        a = in.get();
-        if(!in.eof()) b = in.get();
+//bool CheckSyntax(std::istream& in)
+//{
+//    using namespace std;
 
-        for(a,b;
-            !in.eof() && isOp(in.peek());
-            a=in.get(),
-            b=(!in.eof()) ? in.get() : b);
+//    stack s;
+//    cout << 1 << endl;
+//    while(in.peek() != '\n')
+//    {
+//        cout << 2 << endl;
 
-    }
-}
+//        char ch = in.get();
+//        cout << 3 << endl;
+//        if(isOp(ch))
+//        {
+//            if(ch=='-')
+//                if(isNum(in.peek()))
+//                {
+//                    int n = in.get()-'0';
+//                    while(isNum(in.peek()))
+//                    {
+//                        ch = cin.get();
+//                        n = n*10 + (ch-'0');
+//                    }
+//                    s.push(-n);
+//                }
+//                else
+//                    s.push(ch-'0');
+//            else
+//                s.push(ch-'0');
+//        }
+//        else if(isNum(ch)) s.push(ch);
+//        else if(!isNum(ch) && !isOp(ch) && ch!=' ') return false;
+//    }
+//    cout << "print stack" << endl;
+//    s.print();
+//    in.seekg(0,in.beg);
+//    return true;
+//}
 
 
 

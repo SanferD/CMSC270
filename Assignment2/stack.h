@@ -17,6 +17,7 @@ public:
 
   void push(int x); // Push a new int on the stack
   void pop(); // Remove the item at the top of the stack
+  void print();
 };
 
 #endif // STACK_H

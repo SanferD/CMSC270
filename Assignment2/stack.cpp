@@ -1,4 +1,5 @@
 #include "stack.h"
+#include <iostream>
 
 stack::~stack()
 {
@@ -40,4 +41,15 @@ void stack::pop()
             tp = temp;
             tp->next = head;
         }
+}
+
+void stack::print()
+{
+    IntSLLNode *n = tp;
+    if (!isEmpty())
+    {
+        for(n; n->next!=tp; n=n->next) std::cout << n->info << std::endl;
+        std::cout << tp->info << std::endl;
+    }
+
 }
