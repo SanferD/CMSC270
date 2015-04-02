@@ -3,6 +3,8 @@
 
 #define isOp(ch) (ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='%')
 #define isNum(ch) (ch>='0' && ch<='9')
+// becuase stack only holds numbers, this checks for an operator in terms of its number.
+#define isOpNum(n) (n==('+'-'0') || n==('-'-'0') || n==('*'-'0') || n==('/'-'0') || n==('%'-'0'));
 
 bool CheckSyntax(std::istream& in);
 
@@ -17,7 +19,8 @@ int main(int argc, char *argv[])
     while(true)
     {
         cout << "Enter postfix equation: ";
-//        CheckSyntax(cin);
+        CheckSyntax(cin);
+        cout << "a" << endl;
         if(cin.peek()=='q') break;
         do {
             char ch = cin.peek();
@@ -96,52 +99,38 @@ int main(int argc, char *argv[])
 }
 
 
-//bool CheckSyntax(std::istream& in)
-//{
-//    using namespace std;
-
-//    stack s;
-//    cout << 1 << endl;
-//    while(in.peek() != '\n')
-//    {
-//        cout << 2 << endl;
-
-//        char ch = in.get();
-//        cout << 3 << endl;
-//        if(isOp(ch))
-//        {
-//            if(ch=='-')
-//                if(isNum(in.peek()))
-//                {
-//                    int n = in.get()-'0';
-//                    while(isNum(in.peek()))
-//                    {
-//                        ch = cin.get();
-//                        n = n*10 + (ch-'0');
-//                    }
-//                    s.push(-n);
-//                }
-//                else
-//                    s.push(ch-'0');
-//            else
-//                s.push(ch-'0');
-//        }
-//        else if(isNum(ch)) s.push(ch);
-//        else if(!isNum(ch) && !isOp(ch) && ch!=' ') return false;
-//    }
-//    cout << "print stack" << endl;
-//    s.print();
-//    in.seekg(0,in.beg);
-//    return true;
-//}
+bool CheckSyntax(std::istream& in)
+{
+    using namespace std;
 
 
+    stack s;
+    do{
+        char ch = in.get();
+        if(isOp(ch))
+        {
+            if(ch=='-')
+                if(isNum(in.peek()))
+                {
+                    int n = in.get()-'0';
+                    while(isNum(in.peek()))
+                    {
+                        ch = cin.get();
+                        n = n*10 + (ch-'0');
+                    }
+                    s.push(-n);
+                }
+                else
+                    s.push(ch-'0');
+            else
 
-
-
-
-
-
-
-
-
+                s.push(ch-'0');
+        }
+        else if(isNum(ch)) s.push(ch);
+        else if(!isNum(ch) && !isOp(ch) && ch!=' ') return false;
+    } while(in.peek() != '\n');
+    cout << "print stack" << endl;
+    s.print();
+    in.seekg(0,std::ios::beg);
+    return true;
+}
