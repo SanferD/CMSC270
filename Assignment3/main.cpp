@@ -4,8 +4,6 @@
 #include <time.h>
 #include "doublylinkedlist.h"
 
-using namespace std;
-
 /* creates a file of randomly generated positive integers, num in total,
  * starting at min and ending at max.
  */
@@ -14,7 +12,7 @@ void fillFile(std::string fName,int num,int min,int max)
     std::ofstream out;
     out.open(fName);
 
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     for(int i=0;i!=num;i++)
     {
         int val = (min<max) ? std::rand() % (1+max-min) + min
@@ -26,13 +24,12 @@ void fillFile(std::string fName,int num,int min,int max)
 
 int main()
 {
-    using namespace std;
-
     ifstream src;
     DoublyLinkedList<int> dll;
+
     std::string path = "C:/Programs/CMSC270/Assignment3/";
 
-    fillFile(path+"unsorted.txt",1000,-100,100);
+    fillFile(path+"unsorted.txt",25,-50,50);
     src.open(path+"unsorted.txt");
 
     int x;
@@ -49,7 +46,7 @@ int main()
         }
         else dll.insert(iter,x);
     }
-    cout << dll;
-    cout << endl;
+
+    std::cout << dll << std::endl;
     return 0;
 }

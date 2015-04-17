@@ -89,7 +89,6 @@ public:
             nodePtr = temp!=myList->end() ? nodePtr -> prev : myList->tail;
             return temp;
         }
-
     }; // class Iterator
 
     friend class Iterator;
@@ -172,11 +171,6 @@ public:
         delete pos.nodePtr;
         return retIt;
     }
-
-    T& firstEl();
-    T* find(const T&) const;
-    // friend ostream& operator<<(ostream&, const DoublyLinkedList<T>&);
-
     template<class T>
     friend ostream& operator<<(ostream& out, const DoublyLinkedList<T>& dll)
     {
@@ -184,7 +178,8 @@ public:
             out << tmp->info << ' ';
         return out;
     }
-
+    T& firstEl();
+    T* find(const T&) const;
 protected:
     DLLNode<T> *head, *tail;
     //friend ostream& operator<<(ostream&, const DoublyLinkedList<T>&);
