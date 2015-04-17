@@ -123,6 +123,8 @@ public:
         head = tail = 0;
     }
 
+    /* Inserts a DLLNode with info = val before node at pos.
+     */
     template<class T>
     Iterator insert(Iterator pos, const T &val)
     {
