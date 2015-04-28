@@ -18,8 +18,6 @@ int main()
 
 void format(std::ifstream& src, std::ofstream& dest, int ind)
 {
-    using std::string;
-
     while(src.peek() != EOF)
     {
         char ch = src.get();
