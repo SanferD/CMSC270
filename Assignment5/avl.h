@@ -98,25 +98,32 @@ private:
                 int balR = node->right->balance = nb+2;
                 if(balL<=0 && balR<=0) node->balance = lb-1;
                 else if(balL<=0 && balR>0) node->balance = nb+lb+1;
+                else if(balL>0 && balR<=0) node->balance = pb;
+                else node->balance = nb+pb+2;
             }
             else if(lb<0 && pb>=0)
             {
                 int balR = node->right->balance = nb-lb+2;
                 if(balL<=0 && balR<=0) node->balance = lb-1;
                 else if (balL<=0 && balR>0) node->balance = nb+1;
+                else if(balL>0 && balR<=0) node->balance = pb;
+                else node->balance = nb-lb+pb+2;
             }
             else if(lb>=0 && pb<0)
             {
                 int balR = node->right->balance = nb-pb+2;
                 if(balL<=0 && balR<=0) node->balance = lb+pb-1;
                 else if(balL<=0 && balR>0) node->balance = nb+lb+1;
-
+                else if(balL>0 && balR<=0) node->balance = pb;
+                else node->balance = nb+2;
             }
             else // lb<0 && pb<0
             {
                 int balR = node->right->balance = nb-lb-pb+2;
                 if(balL<=0 && balR<=0) node->balance = lb+pb-1;
                 else if (balL<=0 && balR>0) node->balance = nb+1;
+                else if(balL>0 && balR<=0) node->balance = pb;
+                else node->balance = nb-lb+2;
             }
 
 
