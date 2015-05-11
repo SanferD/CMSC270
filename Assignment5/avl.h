@@ -126,12 +126,10 @@ private:
                 else node->balance = nb-lb+2;
             }
 
-
-
         }
 
-        if(bal<-1) rightRotation(node->right);
-        else if(bal>1) leftRotation(node->right);
+        if(node->balance<-1) rightRotation(node->right);
+        else if(node->balance>1) leftRotation(node->right);
     }
 
     void leftRotation(AVLNode<T>* &node)
@@ -163,13 +161,44 @@ private:
             node->right = Q;
             node = pivot;
 
-            if(rb<=0 && pb<=0) node->balance = nb-2;
-            else if(lb<0 && pb>=0) node->balance = nb-lb+2;
-            else node->balance = nb-lb-pb+2;
+            int balR = node->right->balance = (pb<=0) ? rb-pb+1 : lb+1;
+
+            if(rb<=0 && pb<=0)
+            {
+                int balL = node->left->balance = nb-2;
+                if(balL>=0 && balR>=0) node->balance = rb+1;
+                else if(balL<0 && balR>=0) node->balance = nb+lb-1;
+                else if(balL>=0 && balR<0) node->balance = pb;
+                else node->balance = nb+pb-2;
+            }
+            else if(rb>0 && pb<=0)
+            {
+                int balL = node->left->balance = nb+rb-2;
+                if(balL>=0 && balR>=0) node->balance = rb+1;
+                else if(balL<0 && balR>=0) node->balance = nb-1;
+                else if(balL>=0 && balR<0) node->balance = pb;
+                else node->balance = nb-rb+pb-2;
+            }
+            else if(rb<=0 && pb>0)
+            {
+                int balL = node->left->balance = nb-pb-2;
+                if(balL>=0 && balR>=0) node->balance = rb+pb+1;
+                else if(balL<0 && balR>=0) node->balance = nb+rb-1;
+                else if(balL>=0 && balR<0) node->balance = pb;
+                else node->balance = nb-2;
+            }
+            else // rb>0 && pb>0
+            {
+                int balL = node->left->balance = nb-rb-pb-2;
+                if(balL>=0 && balR>=0) node->balance = rb+pb+1;
+                else if (balL<0 && balR>=0) node->balance = nb-1;
+                else if(balL>=0 && balR<0) node->balance = pb;
+                else node->balance = nb-rb-2;
+            }
         }
 
-        if(bal<-1) rightRotation(node->right);
-        else if(bal>1) leftRotation(node->right);
+        if(node->balance<-1) rightRotation(node->right);
+        else if(node->balance>1) leftRotation(node->right);
     }
 
 
