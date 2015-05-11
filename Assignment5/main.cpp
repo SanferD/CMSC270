@@ -13,12 +13,12 @@ int main()
     x.insert(4);
     x.insert(5);
     x.insert(1);
-//    x.insert(-1);
-//    x.insert(11);
-//    x.insert(24);
-//    x.insert(12);
-//    x.insert(-2);
-//    x.insert(-5);
+    x.insert(-1);
+    x.insert(11);
+    x.insert(24);
+    x.insert(12);
+    x.insert(-2);
+    x.insert(-5);
 
     std::ofstream out(path+"tree.txt");
     x.snapShot(out);

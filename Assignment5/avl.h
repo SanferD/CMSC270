@@ -161,13 +161,13 @@ private:
             node->right = Q;
             node = pivot;
 
-            int balR = node->right->balance = (pb<=0) ? rb-pb+1 : lb+1;
+            int balR = node->right->balance = (pb<=0) ? rb-pb+1 : rb+1;
 
             if(rb<=0 && pb<=0)
             {
                 int balL = node->left->balance = nb-2;
                 if(balL>=0 && balR>=0) node->balance = rb+1;
-                else if(balL<0 && balR>=0) node->balance = nb+lb-1;
+                else if(balL<0 && balR>=0) node->balance = nb+rb-1;
                 else if(balL>=0 && balR<0) node->balance = pb;
                 else node->balance = nb+pb-2;
             }
