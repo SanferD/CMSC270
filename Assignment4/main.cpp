@@ -49,7 +49,6 @@ void format(std::ifstream& src, std::ofstream& dest, int ind)
             break;
         }
     }
-    return;
 }
 
 char *indent(int num)
