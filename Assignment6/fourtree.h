@@ -3,9 +3,6 @@
 
 #include <vector>
 
-static const double R = 3956;
-static const double c = 0.017453293;
-
 class FourTree;
 
 class Node
@@ -13,12 +10,12 @@ class Node
     friend class FourTree;
 public:
     Node(const char *name,
-         int lattitude, int longitude,
+         const int lattitude, const int longitude,
          Node *NW=0, Node *NE=0, Node *SW=0,
          Node *SE=0) : city(name) , lat(lattitude) ,
          lng(longitude) , nw(NW), ne(NE), sw(SW), se(SE)
     {}
-
+    friend void removeSubtree(Node *&p);
 private:
     const char *city;
     int lat, lng;
@@ -31,16 +28,28 @@ public:
     FourTree(){root = 0;}
     ~FourTree();
 
-    void insert(Node* &node)
+    /* Two wrappers: insert Node* or insert (lat,long)
+     */
+    void insert(Node *&node)
     {
         insert(root, node);
     }
 
+    void insert(const char* name, const int lat,
+                const int lng)
+    {
+        Node *node = new Node(name,lat,lng);
+        insert(root,node);
+    }
+
+    /* Two wrappers: getVicinity of Node* within radius r inclusive
+     * or getVicinity of (lat,long) within radius r.
+     */
     const std::vector<const char*>
     getVicinity(const Node *node,const int dist) const
     {
         std::vector<const char*> cities;
-        getVicinity(root, node,0,cities, dist);
+        getVicinity(root, node,cities, dist);
         return cities;
     }
 
@@ -50,15 +59,16 @@ public:
     {
         std::vector<const char*> cities;
         Node *temp = new Node(0,lat,lng);
-        getVicinity(root, temp,0,cities, dist);
+        getVicinity(root, temp,cities, dist);
         return cities;
     }
 
 private:
     Node *root;
     void insert(Node *&p, Node *&n);
-    void getVicinity(const Node *p, const Node *n, const Node *prev,
-                    std::vector<const char*> &cities, const int r) const;
+    void getVicinity(const Node *p, const Node *n,
+                     std::vector<const char*> &cities,
+                     const int r) const;
 };
 
 #endif // FOURTREE_H

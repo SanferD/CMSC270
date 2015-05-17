@@ -32,6 +32,8 @@ void format(std::ifstream& src, std::ofstream& dest, int ind)
             dest << ' ' << ch << '\n' << indent(ind+1);
             format(src,dest,ind+1);
             dest << indent(ind) << '}' << '\n';
+            if(DELIM(ch)) for(;SKIP(src.peek());src.get());
+            if(src.peek() != '}') dest << indent(ind);
             break;
         case '}':
             return;

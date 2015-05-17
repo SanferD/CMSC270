@@ -2,24 +2,26 @@
 #include "fourtree.h"
 #include <vector>
 
-using namespace std;
-
 int main()
 {
     FourTree tree;
-    vector<const char*> cities;
-    Node *one = new Node("LOUISEVILLE",38,85);
-    Node *two = new Node("WASHINGTON",38,77);
-   // Node *three = new Node("Dummy",100,100);
+    std::vector<const char*> cities;
 
-    tree.insert(one);
-    tree.insert(two);
-   // tree.insert(three);
+    tree.insert("LOUISEVILLE",38,85);
+    tree.insert("WASHINGTON",38,77);
+    tree.insert("CHICAGO",41,87);
+    tree.insert("NEW YORK",40,74);
+    tree.insert("PITTSBURG",40,79);
+    tree.insert("DAYTON",39,84);
+    tree.insert("NASHVILLE",36,87);
+    tree.insert("MONTREAL",45,73);
+    tree.insert("CLEVELAND",41,81);
+    tree.insert("ATLANTA",34,84);
 
-    cities = tree.getVicinity(38,77,10000);
+    cities = tree.getVicinity(40,79,400);
 
     for(int i=0;i!=cities.size();i++)
-        cout << cities[i] << endl;
+        std::cout << cities[i] << std::endl;
 
     return 0;
 }
