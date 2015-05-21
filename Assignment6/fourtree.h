@@ -2,6 +2,7 @@
 #define FOURTREE_H
 
 #include <vector>
+#include <iostream>
 
 class FourTree;
 
@@ -49,7 +50,10 @@ public:
     getVicinity(const Node *node,const int dist) const
     {
         std::vector<const char*> cities;
+
+        printDistance(root,node,dist);
         getVicinity(root, node,cities, dist);
+
         return cities;
     }
 
@@ -59,7 +63,10 @@ public:
     {
         std::vector<const char*> cities;
         Node *temp = new Node(0,lat,lng);
+
+        printDistance(root,temp,dist);
         getVicinity(root, temp,cities, dist);
+
         return cities;
     }
 
@@ -69,6 +76,17 @@ private:
     void getVicinity(const Node *p, const Node *n,
                      std::vector<const char*> &cities,
                      const int r) const;
+    double distance(const int, const int, const int, const int) const;
+    void printDistance(const Node *p,const Node *n, const int r) const
+    {
+        double d = distance(n->lat,n->lng,p->lat,p->lng);
+        if(d<=r) std::cout << p->city << " " << d << std::endl;
+
+        if(p->nw) printDistance(p->nw,n,r);
+        if(p->ne) printDistance(p->ne,n,r);
+        if(p->sw) printDistance(p->sw,n,r);
+        if(p->se) printDistance(p->se,n,r);
+    }
 };
 
 #endif // FOURTREE_H

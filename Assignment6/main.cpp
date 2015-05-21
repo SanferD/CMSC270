@@ -1,6 +1,4 @@
-#include <iostream>
 #include "fourtree.h"
-#include <vector>
 
 int main()
 {
@@ -18,8 +16,9 @@ int main()
     tree.insert("CLEVELAND",41,81);
     tree.insert("ATLANTA",34,84);
 
-    cities = tree.getVicinity(40,79,400);
+    cities = tree.getVicinity(40,79,200);
 
+    std::cout << std::endl;
     for(int i=0;i!=cities.size();i++)
         std::cout << cities[i] << std::endl;
 
